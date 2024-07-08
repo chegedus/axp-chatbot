@@ -110,7 +110,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
+@app.get("/bot")
 async def root(question: str, api_key: Annotated[str, Header()]):
     print(f"Received question: {question}")
     print(api_key)
@@ -119,13 +119,3 @@ async def root(question: str, api_key: Annotated[str, Header()]):
     
     response =  rag_chain.invoke(question)
     return {"response": response}
-
-
-########################################
-# Run webapp
-########################################
-
-import uvicorn
-
-if __name__ == "__main__":
-    uvicorn.run("__main__:app", host="0.0.0.0", port=80)
